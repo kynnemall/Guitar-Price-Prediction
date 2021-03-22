@@ -22,9 +22,8 @@ For this project, I was interested in finding out how different features of Les 
 
 There are 3 notebooks available here to showcase work related to the above questions. Each notebook explores the dataset to answer the questions outlined above.  Markdown cells were used to assist in walking through the thought process for individual steps.
 
-The `process_data.py` file was used to prepare the scraped data for analysis.
-
 ## Results<a name="results"></a>
 
-The main findings of the code can be found at the post available [here](https://medium.com/@josh_2774/how-do-you-become-a-developer-5ef1c1c68711).
+The findings from the first part of this analysis can be found [here](https://yodellingzeke.medium.com/how-much-should-you-pay-for-a-les-paul-abae185f0021).
+Part two will begin soon and should be online in a few weeks!
 
