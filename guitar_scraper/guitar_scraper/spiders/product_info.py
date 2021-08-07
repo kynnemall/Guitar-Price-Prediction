@@ -1,4 +1,6 @@
 import scrapy
+import pandas as pd
+
 from ..items import GuitarScraperItem
 
 class ProductInfoSpider(scrapy.Spider):
@@ -24,6 +26,7 @@ class ProductInfoSpider(scrapy.Spider):
                   "https://www.thomann.de/ie/premium_class.html?ls=25&pg=1",
                   "https://www.thomann.de/ie/shortscale_guitars.html?ls=25&pg=1",
                   ]
+    already_scraped = pd.read_csv(r"/home/martin/Documents/Udacity_DSND_notes/1_project_guitar_prices/guitar_scraper/guitar_info.csv")["url"].tolist()
 
     def parse(self, response):
         # check how many products on page
@@ -31,7 +34,10 @@ class ProductInfoSpider(scrapy.Spider):
         if len(products) > 1:
             for p in products:
                 p = p.split("?")[0]
-                yield response.follow(p, self.parse_product)
+                if p not in self.already_scraped:
+                    yield response.follow(p, self.parse_product)
+                else:
+                    print("Got this link already")
         
         # check if link is last page of a category
         if len(products) == 25:
@@ -44,7 +50,7 @@ class ProductInfoSpider(scrapy.Spider):
         item = GuitarScraperItem()
         
         item["name"] = response.css("h1::text").get()
-        item["price"] = response.css(".primary::text").get()
+        item["price"] = response.css(".prod-pricebox-price-primary .primary::text").get()
         item["url"] = response.url
         
         features = response.css(".prod-features span::text").extract()
